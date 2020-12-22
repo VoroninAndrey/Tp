@@ -4,18 +4,18 @@ bool formatname(string &len);
 class cripto //класс направлен на объединение всех методов по кодированию и декодированию 
 {
 protected:
-	string zesar;
-	bool format(string& len);
+	string zesar;// рабочая строка для кодинга-декодинга
+	bool format(string& len);// функция, удаляющая  лишнее из строки (пробелы, //запятые и пр.)
 
-	long mod26(long a);
-	int li(char l);
+	long mod26(long a);// циклический сдвиг
+	int li(char l);//возвращает код от 0 до 25
 	int indexof(char* array, int find);
 	cripto() { zesar = "0"; }
 public:
-	virtual string& MethodOfCoding(string& len) = 0;
+	virtual string& MethodOfCoding(string& len) = 0; //непосредственные  методы кодирования и декодирования переопределяемый в классах- наследниках
 	virtual string& MethodOfDecoding(string& len) = 0;
 	//здесь реализован паттерн Шаблонный метод
-	void coding(istream& in, ostream& out, bool iflag, bool oflag);
+	void coding(istream& in, ostream& out, bool iflag, bool oflag);// общие методы для каждого класса наследника
 	void decoding(istream& in, ostream& out, bool iflag, bool oflag);
 
 };
