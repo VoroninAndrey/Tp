@@ -16,8 +16,8 @@ int main()
 	C[2] = new Enigma();
 	string namef;
 	int ans = 1;
-	bool iflag = false;
-	bool oflag = false;
+	bool iflag = false;// флаг того, что используется input файл
+	bool oflag = false;// флаг того, что используется output файл
 	ifstream fin;
 	fstream fout;
 
@@ -29,7 +29,7 @@ int main()
 		cout << "|2| - Файл;" << endl;
 		cin >> ans;
 		try {
-			if (ans == 2) {
+			if (ans == 2) { // инициализация входного файла
 				iflag = true;
 				cout << "Введите название файла: " << endl;
 				cin.get();
@@ -44,7 +44,7 @@ int main()
 			cout << "|1| - Консоль;" << endl;
 			cout << "|2| - Файл;" << endl;
 			cin >> ans;
-			if (ans == 2)
+			if (ans == 2)//инициализация выходного файла
 			{
 				oflag = true;
 				cout << "Введите название файла: " << endl;
@@ -65,12 +65,12 @@ int main()
 		}
 		system("cls");
 		cout << "Выбор операции" << endl;
-		cout << "|1|-Зашифровать Цезаря\n|2|-Расшифровать Цезаря\n|3|-Зашифровать Вижнера\n|4|-Расшифровать Вижнера\n|5|-Зашифровать Энигма\n|6|-Расшифровать Энигма\n|0|- для выхода\n->";
+		cout << "|1|-Зашифровать Цезаря\n|2|-Расшифровать Цезаря\n|3|-Зашифровать Виженера\n|4|-Расшифровать Виженера\n|5|-Зашифровать Энигма\n|6|-Расшифровать Энигма\n|0|- для выхода\n->";
 		cin >> ans;
 		switch (ans)
 		{
 		case 1:
-
+//в случае, если используется файл, отправляется поток-файл, иначе стандартный поток ввода\вывода
 			C[0]->coding(
 				(iflag == true) ? fin : cin,
 				(oflag == true) ? fout : cout,
@@ -89,7 +89,7 @@ int main()
 			);
 			break;
 		case 3:
-
+//при этом имеется разделение на то, каким классом кодируется поток
 			C[1]->coding(
 				(iflag == true) ? fin : cin,
 				(oflag == true) ? fout : cout,
@@ -134,3 +134,4 @@ int main()
 	return 0;
 
 }
+
