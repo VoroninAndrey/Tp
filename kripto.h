@@ -12,15 +12,15 @@ protected:
 	int indexof(char* array, int find);
 	cripto() { zesar = "0"; }
 public:
-	virtual string& MethodOfCoding(string& len) = 0; //непосредственные  методы кодирования и декодирования переопределяемый в классах- наследниках
+	virtual string& MethodOfCoding(string& len) = 0; // абстрактные методы кодирования и декодирования переопределяемый в классах- наследниках
 	virtual string& MethodOfDecoding(string& len) = 0;
 	//здесь реализован паттерн Шаблонный метод
 	void coding(istream& in, ostream& out, bool iflag, bool oflag);// общие методы для каждого класса наследника
 	void decoding(istream& in, ostream& out, bool iflag, bool oflag);
 
 };
-
-class Ceasar : public cripto
+// класс непосредственно обеспечивающий кодирование и декодирование строки шифром Цезаря
+class Ceasar : public cripto 
 {
 	int shift = 0;
 	string& CaesarCodAndDec(int shift);
@@ -34,7 +34,7 @@ public:
 
 };
 
-
+// класс непосредственно обеспечивающий кодирование и декодирование строки шифром Виженера
 class Vishner : public cripto
 {
 	string key;
@@ -54,7 +54,7 @@ public:
 	string& getKey();
 
 };
-
+// класс непосредственно обеспечивающий кодирование и декодирование строки шифром Энигма
 class Enigma : public cripto
 {
 	string code;
