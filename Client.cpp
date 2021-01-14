@@ -1026,8 +1026,8 @@ int main(int arg, char* argv[])
                             SDL_DestroyWindow(error);
                             continue;
                         }
-                        fout = fopen(output_file_str.c_str(), "w");
-                        if(output_file_str.empty() || (!output_file_str.find(".txt") && !output_file_str.find(".rtx") && !output_file_str.find(".doc")))
+                        //первичная обработка ошибки формата выходного файла: он не может быть пустым или содержать меньше 4 символов
+                        if(output_file_str.empty() || output_file_str.size()<4)
                         {
                             SDL_Window* error = SDL_CreateWindow("Error", SDL_WINDOWPOS_UNDEFINED,
                                 SDL_WINDOWPOS_UNDEFINED, 400, 30,
@@ -1049,6 +1049,32 @@ int main(int arg, char* argv[])
                             SDL_DestroyWindow(error);
                             continue;
                         }
+                        //обработка ошибки, когда формат не соответствует .txt, .rtx, .doc: проверяются последние 4 символа на соответствие формату
+                        string chek_format(output_file_str, output_file_str.size() - 4, output_file_str.size());
+                        if (chek_format != ".txt" && chek_format != ".rtx" && chek_format != ".doc")
+                        {
+
+                            SDL_Window* error = SDL_CreateWindow("Error", SDL_WINDOWPOS_UNDEFINED,
+                                SDL_WINDOWPOS_UNDEFINED, 400, 30,
+                                SDL_WINDOW_SHOWN);
+                            SDL_Surface* scr = SDL_GetWindowSurface(error);
+                            SDL_Surface* scr_error = SDL_LoadBMP("errOutFile.bmp");
+
+                            SDL_Rect err_pos;
+                            err_pos.x = 0;
+                            err_pos.y = 0;
+                            err_pos.h = 30;
+                            err_pos.w = 400;
+                            SDL_SetClipRect(scr_error, &err_pos);
+                            SDL_BlitSurface(scr_error, NULL, scr, &err_pos);
+                            SDL_UpdateWindowSurface(error);
+                            SDL_Delay(1500);
+                            SDL_FreeSurface(scr);
+                            SDL_FreeSurface(scr_error);
+                            SDL_DestroyWindow(error);
+                            continue;
+                        }
+                        fout = fopen(output_file_str.c_str(), "w"); // если название файла прошло все проверки, тогда он уже создается
                         // проверка на пустую строку со смещением
                         if ((c == '0' || c == '1' || c == '4' || c == '5') && input_shift.empty())
                         {
