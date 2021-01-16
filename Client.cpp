@@ -1027,6 +1027,7 @@ int main(int arg, char* argv[])
                             continue;
                         }
                         //первичная обработка ошибки формата выходного файла: он не может быть пустым или содержать меньше 4 символов
+                        //добавленный комментарий
                         if(output_file_str.empty() || output_file_str.size()<4)
                         {
                             SDL_Window* error = SDL_CreateWindow("Error", SDL_WINDOWPOS_UNDEFINED,
