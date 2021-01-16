@@ -43,15 +43,25 @@ int main(int arg, char* argv[])
     char str[1000];
     memset(str, '\0', 1000);
     char in_method[30];
+    memset(in_method, '\0', 30);
     int wsError;
     string s;
+    int chek = -1;
+    int iter_point = 0;
     while (1)
     {
         recv(connect, in_method, sizeof(in_method), NULL);
         int method = atoi(in_method);
-        if (method == 9)break;
-       
-        
+        if (method == 9 || iter_point == 100)break;
+        if (chek == method)
+        {
+            iter_point++;
+        }
+        else
+        {
+            iter_point = 0;
+            chek = method;
+        }
         switch (method)
         {
         case 0: //кодирование методом цезаря
